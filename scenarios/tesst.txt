@@ -1,0 +1,1 @@
+{"room_name": "First", "description": "No one hear", "choice": [{"1": "Go left", "2": "Go right"}, {"1": "", "2": ""}], "neighbors": {"1": "Second", "2": "Third"}}
