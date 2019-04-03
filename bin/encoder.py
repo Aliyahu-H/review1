@@ -48,7 +48,12 @@ while i < len(quest) - 1:
         else:
             skip += 1
     print()
-    user_choice = str(not_skip[int(input()) - 1])
+    s = input()
+    pull = [str(x) for x in not_skip]
+    while s not in pull:
+        print("Error: there is not such option")
+        s = input()
+    user_choice = str(not_skip[int(s) - 1])
     print()
     if current['choice'][0][user_choice] == "Dead End":
         print("Игра окончена")

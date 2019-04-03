@@ -91,8 +91,10 @@ while flag:
     current = int(input())
     if current == 1:
         add_room(output)
-    if current == 2:
+    elif current == 2:
         flag = False
+    else:
+        print('Error: there is not such option')
 json.dump(graph, output)
 output.close()
 pattern.close()
