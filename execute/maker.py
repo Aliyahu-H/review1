@@ -70,19 +70,12 @@ def add_choices():
     return choices, requirements, stuff
 
 
-pattern = codecs.open('resources/editor_pattern.txt', "r", "utf_8_sig")
+pattern = codecs.open('resources/maker_pattern.txt', "r", "utf_8_sig")
 print(pattern.readline(), end='')
 file_way = input()
 print(pattern.readline(), end='')
 file_name = file_way + input() + '.txt'
-input_file = open(file_name, 'r')
-current = input_file.readlines()
-graph = json.loads(current[len(current) - 1])
-current = current[:-1]
-n = len(current)
-input_file.close()
 output = open(file_name, 'w')
-output.writelines(current)
 variants = pattern.readline().split(',, ')
 flag = True
 while flag:
@@ -91,8 +84,10 @@ while flag:
     current = int(input())
     if current == 1:
         add_room(output)
-    if current == 2:
+    elif current == 2:
         flag = False
+    else:
+        print('Error: there is not such option')
 json.dump(graph, output)
 output.close()
 pattern.close()

@@ -5,10 +5,10 @@ for i in range(4):
 pattern.close()
 user_choice = input()
 if user_choice == '1':
-    from bin import encoder
+    from execute import encoder
 elif user_choice == '2':
-    from bin import maker
+    from execute import maker
 elif user_choice == '3':
-    from bin import editor
+    from execute import editor
 else:
-    print('Error')
+    print('Error: there is not such option')
