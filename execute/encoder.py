@@ -15,6 +15,28 @@ def check_inventory(_inventory, requirements):
     return True
 
 
+def open_save_file():
+    print('Введите путь к файлу сохранения:')
+    save_way = input()
+    print('Введите имя сохранения:')
+    save_name = save_way + input() + '.txt'
+    save_file = open(save_name)
+    _save = json.load(save_file)
+    save_file.close()
+    return [_save['inventory'], _save['i'], _save['counter']]
+
+
+def write_save_file(*args):
+    print('Введите путь к файлу сохранения:')
+    save_way = input()
+    print('Введите имя сохранения:')
+    save_name = save_way + input() + '.txt'
+    save_file = open(save_name, 'w')
+    _dict = {'i': args[0], 'counter': args[1], 'inventory': args[2]}
+    json.dump(_dict, save_file, indent='\t')
+    save_file.close()
+
+
 pattern = codecs.open('resources/encoder_pattern.txt', "r", "utf_8_sig")
 print(pattern.readline(), end='')
 file_way = input()
@@ -24,9 +46,24 @@ input_file = open(file_name)
 quest = input_file.readlines()
 graph = json.loads(quest[len(quest) - 1])
 graph = {graph[i]: i for i in range(len(graph))}
+print(pattern.readline(), end='')
+print(pattern.readline(), end='')
 inventory = list()
-counter = 0
-i = 0
+ans = input()
+while True:
+    if ans == '1':
+        counter = 0
+        i = 0
+        break
+    elif ans == '2':
+        save = open_save_file()
+        inventory = save[0]
+        i = save[1]
+        counter = save[2]
+        break
+    else:
+        print('Error: there is not such option')
+        ans = input()
 while i < len(quest) - 1:
     current = json.loads(quest[i])
     print('//////////////////////////////////////////////////////////////////////////////////////////////////')
@@ -50,9 +87,12 @@ while i < len(quest) - 1:
     print()
     s = input()
     pull = [str(x) for x in not_skip]
-    while s not in pull:
+    while s not in pull and s != 's':
         print("Error: there is not such option")
         s = input()
+    if s == 's':
+        write_save_file(i, counter, inventory)
+        continue
     user_choice = str(not_skip[int(s) - 1])
     print()
     if current['choice'][0][user_choice] == "Dead End":
